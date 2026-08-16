@@ -1,0 +1,34 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { ui, languages, useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang as keyof typeof ui);
+---
+<Layout title={`PLASTart - ${t('nav.contact')}`} lang={lang}>
+    <Header lang={lang} />
+    <main>
+        <div class="page-header">
+            <div class="container">
+                <h1>{t('nav.contact')}</h1>
+            </div>
+        </div>
+        <section class="container" style="padding-top: 0;">
+            <div class="grid">
+                <div class="card">
+                    <h3>Dane adresowe</h3>
+                    <p><strong>PLASTart</strong><br/>{t('contact.address')}</p>
+                    <p style="margin-top: 20px;"><strong>Telefon:</strong> {t('contact.phone')}<br/>
+                    <strong>Email:</strong> {t('contact.email')}</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <Footer />
+</Layout>

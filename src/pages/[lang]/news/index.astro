@@ -1,0 +1,44 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { ui, languages, useTranslations } from '../../../i18n/utils';
+import { getCollection } from 'astro:content';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang as keyof typeof ui);
+
+const allNews = await getCollection('news', ({ id }) => id.startsWith(`${lang}/`));
+const sortedNews = allNews.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<Layout title={`PLASTart - ${t('nav.news')}`} lang={lang}>
+    <Header lang={lang} />
+    <main>
+        <div class="page-header">
+            <div class="container">
+                <h1>{t('nav.news')}</h1>
+            </div>
+        </div>
+        <section class="container" style="padding-top: 0;">
+            <div class="grid" style="grid-template-columns: 1fr; max-width: 800px; margin: 0 auto;">
+                {sortedNews.map(post => (
+                    <div class="card">
+                        <div style="color: var(--secondary); font-weight: bold; margin-bottom: 10px;">
+                            {post.data.date.toLocaleDateString(lang, {year: 'numeric', month: 'long', day: 'numeric'})}
+                        </div>
+                        <h3 style="margin-top: 0; font-size: 1.5rem; text-transform: uppercase;">
+                            <a href={`/${lang}/news/${post.slug.split('/')[1]}`} style="color: var(--primary); text-decoration: none;">{post.data.title}</a>
+                        </h3>
+                        <p>{post.data.description}</p>
+                        <a href={`/${lang}/news/${post.slug.split('/')[1]}`} style="display: inline-block; margin-top: 10px; font-weight: 800;">{t('button.more')} &rarr;</a>
+                    </div>
+                ))}
+            </div>
+        </section>
+    </main>
+    <Footer />
+</Layout>

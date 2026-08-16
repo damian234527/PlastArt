@@ -1,0 +1,43 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+import { ui, useTranslations } from '../../../i18n/utils';
+
+export async function getStaticPaths() {
+    const allNews = await getCollection('news');
+    return allNews.map(entry => {
+        const [lang, ...slugParts] = entry.slug.split('/');
+        const slug = slugParts.join('/');
+        return {
+            params: { lang, slug },
+            props: { entry },
+        };
+    });
+}
+
+const { lang } = Astro.params;
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const t = useTranslations(lang as keyof typeof ui);
+---
+<Layout title={`PLASTart - ${entry.data.title}`} lang={lang}>
+    <Header lang={lang} />
+    <main>
+        <div class="page-header" style="padding: 50px 20px;">
+            <div class="container" style="max-width: 800px;">
+                <h1 style="font-size: 2.5rem; text-align: left;">{entry.data.title}</h1>
+            </div>
+        </div>
+        <section class="container" style="padding-top: 0; max-width: 800px;">
+            <div class="card prose">
+                <Content />
+            </div>
+            <div style="margin-top: 40px;">
+                <a href={`/${lang}/news`} class="btn-more" style="margin-top: 0;">&larr; {t('button.back')}</a>
+            </div>
+        </section>
+    </main>
+    <Footer />
+</Layout>

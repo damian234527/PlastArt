@@ -1,3 +1,11 @@
+# Build and production output
+dist/
+# Optional static build output
+_astro/
+
+# Astro generated types and cache
+.astro/
+
 # Logs
 logs
 *.log

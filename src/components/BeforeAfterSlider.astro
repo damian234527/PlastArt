@@ -1,0 +1,99 @@
+---
+interface Props {
+  beforeSrc: string;
+  afterSrc: string;
+}
+const { beforeSrc, afterSrc } = Astro.props;
+---
+<div class="ba-container">
+  <img class="image-before" src={beforeSrc} alt="Zdjęcie po naprawie" />
+  <img class="image-after" src={afterSrc} alt="Zdjęcie przed naprawą" />
+  <input type="range" min="0" max="100" value="50" class="slider" aria-label="Porównaj zdjęcia" />
+  <div class="slider-line"></div>
+  <div class="slider-button">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m9 18-6-6 6-6"/>
+      <path d="m15 18 6-6-6-6"/>
+    </svg>
+  </div>
+</div>
+<style>
+  .ba-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    border-radius: 8px;
+    --position: 50%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  .ba-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+  .image-after {
+    clip-path: polygon(0 0, var(--position) 0, var(--position) 100%, 0 100%);
+  }
+  .slider {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: ew-resize;
+    z-index: 10;
+  }
+  .slider-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--position);
+    width: 3px;
+    background: var(--secondary);
+    z-index: 5;
+    transform: translateX(-50%);
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  }
+  .slider-button {
+    position: absolute;
+    top: 50%;
+    left: var(--position);
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    border: 2px solid var(--secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    pointer-events: none;
+  }
+  .slider-button svg {
+    color: white;
+    width: 20px;
+    height: 20px;
+  }
+</style>
+<script>
+  const setupSliders = () => {
+    const containers = document.querySelectorAll('.ba-container');
+    containers.forEach(container => {
+      const slider = container.querySelector('.slider') as HTMLInputElement;
+      if(slider) {
+          slider.addEventListener('input', (e) => {
+            (container as HTMLElement).style.setProperty('--position', `${(e.target as HTMLInputElement).value}%`);
+          });
+      }
+    });
+  };
+  document.addEventListener('astro:page-load', setupSliders);
+  setupSliders();
+</script>

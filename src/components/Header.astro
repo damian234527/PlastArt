@@ -1,0 +1,24 @@
+---
+import { languages, useTranslations } from '../i18n/utils';
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<header>
+    <div class="container nav-container">
+        <a href={`/${lang}/`} class="logo" style="font-style: italic; display: flex; align-items: center; gap: 4px; font-size: 2.2rem; text-decoration: none;">
+            <span style="color: var(--secondary); font-weight: 800; letter-spacing: -1px;">PLAST</span>
+            <span style="color: white; font-weight: 800; letter-spacing: -1px;">art</span>
+        </a>
+        <nav>
+            <a href={`/${lang}/about`}>{t('nav.about')}</a>
+            <a href={`/${lang}/gallery`}>{t('nav.gallery')}</a>
+            <a href={`/${lang}/news`}>{t('nav.news')}</a>
+            <a href={`/${lang}/contact`}>{t('nav.contact')}</a>
+            <div class="lang-switcher">
+                {Object.keys(languages).map((l) => (
+                    <a href={`/${l}/`} class={lang === l ? 'active' : ''}>{l.toUpperCase()}</a>
+                ))}
+            </div>
+        </nav>
+    </div>
+</header>

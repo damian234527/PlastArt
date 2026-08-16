@@ -1,0 +1,68 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { ui, languages, useTranslations } from '../../i18n/utils';
+import { getCollection } from 'astro:content';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang as keyof typeof ui);
+
+const allNews = await getCollection('news', ({ id }) => id.startsWith(`${lang}/`));
+const latestNews = allNews.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+---
+
+<Layout title={`PLASTart - ${t('hero.title')}`} lang={lang}>
+    <Header lang={lang} />
+    <main>
+        <section class="hero" style="background: linear-gradient(rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.85)), url('https://images.unsplash.com/photo-1504917595217-d4bf804c7bfa?auto=format&fit=crop&q=80&w=2000') center/cover; padding: 140px 20px; text-align: center; color: white; margin-top: 0px; border-bottom: 5px solid var(--secondary);">
+            <div class="container">
+                <h1 style="color: white; font-size: 3.5rem; margin-bottom: 15px; letter-spacing: -1px; text-transform: uppercase;">{t('hero.title')}</h1>
+                <p style="font-size: 1.3rem; color: #cccccc; max-width: 600px; margin: 0 auto;">{t('hero.subtitle')}</p>
+            </div>
+        </section>
+
+        <!-- SEKCJA O NAS -->
+        <section id="about" class="container">
+            <h2>{t('about.title')}</h2>
+            <div class="grid" style="align-items: center; margin-top: 40px;">
+                <div class="card" style="border-left: 5px solid var(--secondary); border-top: none;">
+                    <p style="font-size: 1.1rem;">{t('about.desc')}</p>
+                    <p style="margin-top: 15px; font-weight: bold; color: var(--primary);">{t('about.materials')}</p>
+                </div>
+                <div style="background: #e2e8f0; height: 100%; min-height: 250px; border-radius: 0px; display: flex; align-items: center; justify-content: center; color: #94a3b8;">[Zdjęcie]</div>
+            </div>
+            <div class="center-action">
+                <a href={`/${lang}/about`} class="btn-more">{t('button.more')}</a>
+            </div>
+        </section>
+
+        <!-- SEKCJA AKTUALNOŚCI -->
+        <section id="news" class="container" style="background-color: #e5e5e5; padding-left: 30px; padding-right: 30px;">
+            <h2>{t('news.title')}</h2>
+            <div class="grid" style="margin-top: 40px;">
+                {latestNews.map(post => (
+                    <div class="card">
+                        <div style="font-size: 0.9rem; color: #888888; margin-bottom: 10px; font-weight: bold;">
+                            {post.data.date.toLocaleDateString(lang, {year: 'numeric', month: 'long', day: 'numeric'})}
+                        </div>
+                        <h3 style="margin-top: 0; font-size: 1.2rem; text-transform: uppercase;">
+                            <a href={`/${lang}/news/${post.slug.split('/')[1]}`} style="color: var(--primary); text-decoration: none;">{post.data.title}</a>
+                        </h3>
+                        <p>{post.data.description}</p>
+                        <a href={`/${lang}/news/${post.slug.split('/')[1]}`} style="font-weight: 800; font-size: 0.95rem;">{t('button.more')} &rarr;</a>
+                    </div>
+                ))}
+            </div>
+            <div class="center-action">
+                <a href={`/${lang}/news`} class="btn-more">{t('button.more')}</a>
+            </div>
+        </section>
+
+    </main>
+    <Footer />
+</Layout>
