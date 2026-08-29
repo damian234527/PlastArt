@@ -20,12 +20,14 @@ const t = useTranslations(lang as keyof typeof ui);
             </div>
         </div>
         <section class="container" style="padding-top: 0;">
-            <div class="grid">
+            <div class="grid" style="max-width: 600px; margin: 0 auto;">
                 <div class="card">
-                    <h3>Dane adresowe</h3>
-                    <p><strong>PLASTart</strong><br/>{t('contact.address')}</p>
-                    <p style="margin-top: 20px;"><strong>Telefon:</strong> {t('contact.phone')}<br/>
-                    <strong>Email:</strong> {t('contact.email')}</p>
+                    <h3 style="margin-top: 0; font-size: 1.4rem;">Dane adresowe</h3>
+                    <p style="margin-bottom: 15px;"><strong>PLASTart</strong><br/>{t('contact.address')}</p>
+                    <p style="margin-top: 20px; line-height: 2;">
+                        <strong>Telefon:</strong> <a href={`tel:${t('contact.phone')}`} style="display: inline-block; padding: 2px 0;">{t('contact.phone')}</a><br/>
+                        <strong>Email:</strong> <a href={`mailto:${t('contact.email')}`} style="display: inline-block; padding: 2px 0;">{t('contact.email')}</a>
+                    </p>
                 </div>
             </div>
         </section>

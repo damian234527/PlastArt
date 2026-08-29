@@ -5,11 +5,20 @@ const t = useTranslations(lang);
 ---
 <header>
     <div class="container nav-container">
-        <a href={`/${lang}/`} class="logo" style="font-style: italic; display: flex; align-items: center; gap: 4px; font-size: 2.2rem; text-decoration: none;">
+        <a href={`/${lang}/`} class="logo" style="font-style: italic; display: flex; align-items: center; gap: 4px; font-size: 1.8rem; text-decoration: none;">
             <span style="color: var(--secondary); font-weight: 800; letter-spacing: -1px;">PLAST</span>
             <span style="color: white; font-weight: 800; letter-spacing: -1px;">art</span>
         </a>
-        <nav>
+
+        <button class="menu-toggle" id="menu-toggle" aria-label="Otwórz menu nawigacji" aria-expanded="false">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+
+        <nav id="nav-menu">
             <a href={`/${lang}/about`}>{t('nav.about')}</a>
             <a href={`/${lang}/gallery`}>{t('nav.gallery')}</a>
             <a href={`/${lang}/news`}>{t('nav.news')}</a>
@@ -22,3 +31,19 @@ const t = useTranslations(lang);
         </nav>
     </div>
 </header>
+
+<script>
+  const initNav = () => {
+    const toggleBtn = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    toggleBtn?.addEventListener('click', () => {
+      const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+      toggleBtn.setAttribute('aria-expanded', String(!isExpanded));
+      navMenu?.classList.toggle('open');
+    });
+  };
+
+  document.addEventListener('astro:page-load', initNav);
+  initNav();
+</script>

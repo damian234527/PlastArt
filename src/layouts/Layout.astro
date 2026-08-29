@@ -1,17 +1,17 @@
 ---
 interface Props {
 	title: string;
-    lang: string;
+    description?: string;
+    lang?: string;
 }
-const { title, description, lang = "pl" } = Astro.props;
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const { title, description = "PLASTart - Spawanie tworzyw sztucznych", lang = "pl" } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://plastart.pl');
 ---
 <!doctype html>
 <html lang={lang}>
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="PLASTart - Spawanie tworzyw sztucznych" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<title>{title}</title>
 		<meta name="description" content={description} />
@@ -20,9 +20,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		<link rel="canonical" href={canonicalURL} />
 
 		<!-- i18n hreflang -->
-		<link rel="alternate" hreflang="en" href={new URL('/en' + Astro.url.pathname.replace(/^\/(en|pl)/, ''), Astro.site)} />
-		<link rel="alternate" hreflang="pl" href={new URL('/pl' + Astro.url.pathname.replace(/^\/(en|pl)/, ''), Astro.site)} />
-		<link rel="alternate" hreflang="x-default" href={new URL('/en' + Astro.url.pathname.replace(/^\/(en|pl)/, ''), Astro.site)} />
+		<link rel="alternate" hreflang="en" href={new URL('/en' + Astro.url.pathname.replace(/^\/(en|pl)/, ''), Astro.site || 'https://plastart.pl')} />
+		<link rel="alternate" hreflang="pl" href={new URL('/pl' + Astro.url.pathname.replace(/^\/(en|pl)/, ''), Astro.site || 'https://plastart.pl')} />
+		<link rel="alternate" hreflang="x-default" href={new URL('/en' + Astro.url.pathname.replace(/^\/(en|pl)/, ''), Astro.site || 'https://plastart.pl')} />
 
 		<!-- Open Graph / Social -->
 		<meta property="og:title" content={title} />
@@ -31,9 +31,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		<meta property="og:url" content={canonicalURL} />
 		<style is:global>
 			:root {
-				--primary: #0a0a0a; /* Głęboka czerń z logo */
-				--secondary: #ff0000; /* Mocna czerwień z logo */
-				--bg: #f5f5f5; /* Delikatna szarość dla lepszego kontrastu z mocnymi kolorami */
+				--primary: #0a0a0a;
+				--secondary: #ff0000;
+				--bg: #f5f5f5;
 				--text: #222222;
                 --card-bg: #ffffff;
 			}
@@ -44,43 +44,196 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 				background-color: var(--bg);
 				color: var(--text);
 				line-height: 1.6;
+                overflow-x: hidden;
 			}
 			* { box-sizing: border-box; }
-			.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-			section { padding: 80px 0; }
+			.container { 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 0 16px; 
+            }
+			section { padding: 50px 0; }
 			h1, h2, h3 { color: var(--primary); }
-            h2 { font-size: 2.2rem; margin-bottom: 1.5rem; text-align: center; font-weight: 800; text-transform: uppercase; }
-            h2::after { content: ''; display: block; width: 60px; height: 5px; background: var(--secondary); margin: 10px auto 0; border-radius: 0px;}
+            h2 { 
+                font-size: clamp(1.6rem, 4vw, 2.2rem); 
+                margin-bottom: 1.2rem; 
+                text-align: center; 
+                font-weight: 800; 
+                text-transform: uppercase; 
+            }
+            h2::after { 
+                content: ''; 
+                display: block; 
+                width: 60px; 
+                height: 4px; 
+                background: var(--secondary); 
+                margin: 10px auto 0; 
+            }
 			a { color: var(--secondary); text-decoration: none; }
 			
-            header { background: var(--primary); color: white; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border-bottom: 4px solid var(--secondary); }
-			.nav-container { display: flex; justify-content: space-between; align-items: center; }
-			nav { display: flex; gap: 1.5rem; align-items: center; font-weight: 600; }
-			nav a { color: #cccccc; transition: color 0.3s; }
+            header { 
+                background: var(--primary); 
+                color: white; 
+                padding: 0.75rem 0; 
+                position: sticky; 
+                top: 0; 
+                z-index: 100; 
+                box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+                border-bottom: 4px solid var(--secondary); 
+            }
+			.nav-container { 
+                display: flex; 
+                justify-content: space-between; 
+                align-items: center; 
+                position: relative;
+            }
+			nav { 
+                display: flex; 
+                gap: 1.5rem; 
+                align-items: center; 
+                font-weight: 600; 
+            }
+			nav a { 
+                color: #cccccc; 
+                transition: color 0.3s; 
+                padding: 6px 0;
+            }
 			nav a:hover { color: var(--secondary); }
-            .lang-switcher { display: flex; gap: 0.5rem; margin-left: 1rem; border-left: 1px solid #333333; padding-left: 1.5rem; }
-            .lang-switcher a { border: 1px solid #444444; padding: 3px 10px; border-radius: 0px; font-size: 0.85rem; color: #aaaaaa; }
-            .lang-switcher a:hover, .lang-switcher a.active { background: var(--secondary); color: white; border-color: var(--secondary); }
+            .lang-switcher { 
+                display: flex; 
+                gap: 0.5rem; 
+                margin-left: 1rem; 
+                border-left: 1px solid #333333; 
+                padding-left: 1.5rem; 
+            }
+            .lang-switcher a { 
+                border: 1px solid #444444; 
+                padding: 6px 12px; 
+                font-size: 0.85rem; 
+                color: #aaaaaa; 
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 36px;
+            }
+            .lang-switcher a:hover, .lang-switcher a.active { 
+                background: var(--secondary); 
+                color: white; 
+                border-color: var(--secondary); 
+            }
 			
+            .menu-toggle {
+                display: none;
+                background: transparent;
+                border: none;
+                color: white;
+                cursor: pointer;
+                padding: 8px;
+            }
+
 			@media (max-width: 768px) {
-				.nav-container { flex-direction: column; gap: 15px; }
-				nav { flex-wrap: wrap; justify-content: center; gap: 1rem; }
-                .lang-switcher { border-left: none; padding-left: 0; margin-left: 0; }
+                .menu-toggle {
+                    display: block;
+                }
+                nav {
+                    display: none;
+                    position: absolute;
+                    top: calc(100% + 0.75rem);
+                    left: -16px;
+                    right: -16px;
+                    background: var(--primary);
+                    flex-direction: column;
+                    padding: 20px;
+                    gap: 1.2rem;
+                    border-bottom: 3px solid var(--secondary);
+                    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+                }
+                nav.open {
+                    display: flex;
+                }
+                nav a {
+                    font-size: 1.1rem;
+                    width: 100%;
+                    text-align: center;
+                    padding: 8px 0;
+                }
+                .lang-switcher { 
+                    border-left: none; 
+                    padding-left: 0; 
+                    margin-left: 0; 
+                    justify-content: center;
+                    width: 100%;
+                    padding-top: 10px;
+                    border-top: 1px solid #222222;
+                }
+                section { padding: 40px 0; }
 			}
             
-            .card { background: var(--card-bg); padding: 30px; border-radius: 0px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-top: 4px solid transparent; transition: border-color 0.3s ease; }
+            .card { 
+                background: var(--card-bg); 
+                padding: clamp(20px, 4vw, 30px); 
+                box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+                border-top: 4px solid transparent; 
+                transition: border-color 0.3s ease; 
+            }
             .card:hover { border-top: 4px solid var(--secondary); }
-            .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+            .grid { 
+                display: grid; 
+                grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); 
+                gap: 20px; 
+            }
             
-            .btn-more { display: inline-block; margin-top: 25px; padding: 12px 30px; background: transparent; color: var(--secondary); border: 2px solid var(--secondary); font-weight: bold; transition: all 0.3s ease; text-align: center; text-transform: uppercase; letter-spacing: 1px; }
+            .btn-more { 
+                display: inline-block; 
+                margin-top: 20px; 
+                padding: 12px 24px; 
+                background: transparent; 
+                color: var(--secondary); 
+                border: 2px solid var(--secondary); 
+                font-weight: bold; 
+                transition: all 0.3s ease; 
+                text-align: center; 
+                text-transform: uppercase; 
+                letter-spacing: 1px; 
+                width: 100%;
+                max-width: 280px;
+            }
             .btn-more:hover { background: var(--secondary); color: white; }
             .center-action { text-align: center; margin-top: 20px; }
 
-            .page-header { background: var(--primary); color: white; padding: 80px 20px; text-align: center; margin-bottom: 40px; border-bottom: 5px solid var(--secondary); }
-            .page-header h1 { color: white; margin: 0; font-size: 3rem; text-transform: uppercase; font-weight: 800; }
-            .page-header h1::after { content: ''; display: block; width: 80px; height: 5px; background: var(--secondary); margin: 15px auto 0; }
+            .page-header { 
+                background: var(--primary); 
+                color: white; 
+                padding: clamp(40px, 8vw, 80px) 16px; 
+                text-align: center; 
+                margin-bottom: 30px; 
+                border-bottom: 5px solid var(--secondary); 
+            }
+            .page-header h1 { 
+                color: white; 
+                margin: 0; 
+                font-size: clamp(2rem, 6vw, 3rem); 
+                text-transform: uppercase; 
+                font-weight: 800; 
+            }
+            .page-header h1::after { 
+                content: ''; 
+                display: block; 
+                width: 60px; 
+                height: 4px; 
+                background: var(--secondary); 
+                margin: 12px auto 0; 
+            }
 
-            footer { background: var(--primary); color: #888888; text-align: center; padding: 40px 0; margin-top: 40px; border-top: 5px solid var(--secondary); }
+            footer { 
+                background: var(--primary); 
+                color: #888888; 
+                text-align: center; 
+                padding: 30px 16px; 
+                margin-top: 40px; 
+                border-top: 5px solid var(--secondary); 
+                font-size: 0.95rem;
+            }
             footer p { margin: 0; }
 		</style>
 	</head>
