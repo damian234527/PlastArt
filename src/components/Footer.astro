@@ -1,10 +1,13 @@
 ---
+import { languages, useTranslations } from '../i18n/utils';
+const { lang } = Astro.params;
+const t = useTranslations(lang as keyof typeof ui);
 ---
 <footer>
     <div class="container">
         <p>PLASTart</p>
-		<p>ul. Paderewskiego 202, 46-660 Kalety</p>
-		<p>Telefon: +48 538 135 646</p>
-		<p>E-mail: UZUPEŁNIĆ</p>
+		<p>{t('contact.address')}</p>
+		<p>Telefon: {t('contact.phone')}</p>
+		<p>E-mail: {t('contact.email')}</p>
     </div>
 </footer>
