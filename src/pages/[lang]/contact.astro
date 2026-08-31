@@ -25,11 +25,11 @@ const t = useTranslations(lang as keyof typeof ui);
                 
                 <!-- Contact Info Card -->
                 <div class="card">
-                    <h3 style="margin-top: 0; font-size: 1.4rem;">Dane adresowe</h3>
+                    <h3 style="margin-top: 0; font-size: 1.4rem;">{t('contact.details')}</h3>
                     <p style="margin-bottom: 15px;"><strong>PLASTart</strong><br/>{t('contact.address')}</p>
                     <p style="margin-top: 20px; line-height: 2;">
-                        <strong>Telefon:</strong> <a href={`tel:${t('contact.phone')}`} style="display: inline-block; padding: 2px 0;">{t('contact.phone')}</a><br/>
-                        <strong>Email:</strong> <a href={`mailto:${t('contact.email')}`} style="display: inline-block; padding: 2px 0;">{t('contact.email')}</a>
+                        <strong>{t('contact.phone.title')}:</strong> <a href={`tel:${t('contact.phone')}`} style="display: inline-block; padding: 2px 0;">{t('contact.phone')}</a><br/>
+                        <strong>E-mail:</strong> <a href={`mailto:${t('contact.email')}`} style="display: inline-block; padding: 2px 0;">{t('contact.email')}</a>
                     </p>
                 </div>
 
