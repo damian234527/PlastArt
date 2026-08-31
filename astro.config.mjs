@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 export default defineConfig({
+  output: 'static',
   site: 'http://localhost:4321', 
   // site: 'https://plastart.plast.one.pl',
   integrations: [sitemap()],
