@@ -20,11 +20,56 @@ const t = useTranslations(lang as keyof typeof ui);
             </div>
         </div>
         <section class="container" style="padding-top: 0;">
-            <div class="card" style="font-size: 1.1rem; line-height: 1.8;">
+            
+            <!-- Główny opis firmy i procesu wyceny -->
+            <div class="card" style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px;">
                 <p><strong>{t('about.desc')}</strong></p>
-                <p>{t('page.about.full')}</p>
-                <p>{t('about.materials')}</p>
+                <p>{t('about.intro')}</p>
+                <p>{t('about.materials.full')}</p>
+                <p>{t('about.pricing')}</p>
             </div>
+
+            <!-- Sekcja usług w układzie kolumnowym -->
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 30px;">
+                
+                <!-- Kategoria: Motoryzacja -->
+                <div class="card">
+                    <h3 style="margin-top: 0;">{t('about.auto.title')}</h3>
+                    <ul style="padding-left: 20px; line-height: 1.6;">
+                        <li style="margin-bottom: 10px;">{t('about.auto.list.1')}</li>
+                        <li style="margin-bottom: 10px;">{t('about.auto.list.2')}</li>
+                        <li style="margin-bottom: 10px;">{t('about.auto.list.3')}</li>
+                        <li>{t('about.auto.list.4')}</li>
+                    </ul>
+                </div>
+                
+                <!-- Kategoria: Dom, ogród, inne -->
+                <div class="card">
+                    <h3 style="margin-top: 0;">{t('about.other.title')}</h3>
+                    <ul style="padding-left: 20px; line-height: 1.6;">
+                        <li style="margin-bottom: 10px;">{t('about.other.list.1')}</li>
+                        <li style="margin-bottom: 10px;">{t('about.other.list.2')}</li>
+                        <li>{t('about.other.list.3')}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Sekcja budowy zbiorników oraz tablic -->
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                
+                <!-- Kategoria: Zbiorniki i Konstrukcje -->
+                <div class="card">
+                    <h3 style="margin-top: 0;">{t('about.tanks.title')}</h3>
+                    <p style="line-height: 1.6;">{t('about.tanks.desc')}</p>
+                </div>
+
+                <!-- Kategoria: Tabliczki -->
+                <div class="card">
+                    <h3 style="margin-top: 0;">{t('about.plates.title')}</h3>
+                    <p style="line-height: 1.6;">{t('about.plates.desc')}</p>
+                </div>
+            </div>
+
         </section>
     </main>
     <Footer />
