@@ -21,8 +21,8 @@ const latestNews = allNews.sort((a, b) => b.data.date.valueOf() - a.data.date.va
     <main>
         <section class="hero" style="background: linear-gradient(rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.85)), url('https://images.unsplash.com/photo-1504917595217-d4bf804c7bfa?auto=format&fit=crop&q=80&w=2000') center/cover; padding: 140px 20px; text-align: center; color: white; margin-top: 0px; border-bottom: 5px solid var(--secondary);">
             <div class="container">
-                <h1 style="color: white; font-size: 3.5rem; margin-bottom: 15px; letter-spacing: -1px; text-transform: uppercase;">{t('hero.title')}</h1>
-                <p style="font-size: 1.3rem; color: #cccccc; max-width: 600px; margin: 0 auto;">{t('hero.subtitle')}</p>
+                <h1 style="color: white; font-size: clamp(2rem, 6vw, 3.5rem); line-height: 1.2; margin-bottom: 15px; letter-spacing: -1px; text-transform: uppercase; word-wrap: break-word;">{t('hero.title')}</h1>
+                <p style="font-size: clamp(1rem, 3vw, 1.3rem); color: #cccccc; max-width: 600px; margin: 0 auto;">{t('hero.subtitle')}</p>
             </div>
         </section>
 
