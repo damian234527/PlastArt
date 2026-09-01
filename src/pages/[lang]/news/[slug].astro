@@ -7,14 +7,17 @@ import { ui, useTranslations } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
     const allNews = await getCollection('news');
-    return allNews.map(entry => {
-        const [lang, ...slugParts] = entry.slug.split('/');
-        const slug = slugParts.join('/');
-        return {
-            params: { lang, slug },
-            props: { entry },
-        };
-    });
+    return allNews
+        .filter(entry => entry.slug.includes('/'))
+        .map(entry => {
+            const [lang, ...slugParts] = entry.slug.split('/');
+            const slug = slugParts.join('/');
+            
+            return {
+                params: { lang, slug },
+                props: { entry },
+            };
+        });
 }
 
 const { lang } = Astro.params;
