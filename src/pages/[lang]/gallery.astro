@@ -23,7 +23,7 @@ const t = useTranslations(lang as keyof typeof ui);
         <section class="container" style="padding-top: 0;">
             <p style="text-align: center; font-size: clamp(1rem, 2.5vw, 1.1rem); margin-bottom: 30px;">{t('page.gallery.full')}</p>
             
-            <!-- Category 1: Original Before/After Slider Section -->
+            <!-- Zdjęcia ze sliderem -->
             <div style="margin-bottom: 60px;">
                 <h2>{t('gallery.cat1.title')}</h2>
                 <p style="text-align: center; color: #666666; margin-bottom: 30px;">{t('gallery.cat1.desc')}</p>
@@ -40,13 +40,12 @@ const t = useTranslations(lang as keyof typeof ui);
                 </div>
             </div>
 
-            <!-- Category 2: Interactive Grid with Hover & Modal -->
+            <!-- Siatka zdjęć -->
             <div style="margin-bottom: 60px;">
                 <h2>{t('gallery.cat2.title')}</h2>
                 <p style="text-align: center; color: #666666; margin-bottom: 30px;">{t('gallery.cat2.desc')}</p>
                 
                 <div class="gallery-grid">
-                    {/* Placeholder mapping: Replace src/data attributes with your actual dynamic image data */}
                     {Array.from({length: 6}).map((_, i) => (
                         <div class="gallery-item" 
                             data-before={`/images/item${i + 1}_before.webp`}
@@ -75,7 +74,7 @@ const t = useTranslations(lang as keyof typeof ui);
     </main>
     <Footer />
 
-<!-- Fullscreen Modal Structure -->
+<!-- Pełnoekranowy element modalny do zdjęć -->
     <dialog id="gallery-modal">
         <button id="modal-close" class="close-btn">&times;</button>
         <div class="modal-layout">
@@ -84,7 +83,7 @@ const t = useTranslations(lang as keyof typeof ui);
                 <h3 id="modal-title" style="margin-bottom: 10px;">Po naprawie</h3>
                 <img id="modal-img" src="" alt="Fullscreen view" />
                 
-                <!-- Navigation Thumbnails -->
+                <!-- Miniaturki do nawigacji -->
                 <div class="modal-thumbnails">
                     <img class="modal-thumb" data-index="0" src="" alt="Przed" title="Przed naprawą" />
                     <img class="modal-thumb active" data-index="1" src="" alt="Po" title="Po naprawie" />
@@ -97,14 +96,12 @@ const t = useTranslations(lang as keyof typeof ui);
 </Layout>
 
 <style>
-  /* Grid Layout */
   .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
     gap: 20px;
   }
 
-  /* Item Card & Hover Dynamics */
   .gallery-item {
     position: relative;
     width: 100%;
