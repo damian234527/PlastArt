@@ -25,9 +25,9 @@ const t = useTranslations(lang as keyof typeof ui);
             <div class="simple-gallery-grid">
                 {/* Example mapping for 12 still images */}
                 {Array.from({length: 12}).map((_, i) => (
-                    <div class="simple-gallery-item" data-src={`/images/extended_${i + 1}.webp`}>
+                    <div class="simple-gallery-item" data-src={`/images/extended${i + 1}.webp`}>
                         <img 
-                            src={`/images/extended_${i + 1}.webp`} 
+                            src={`/images/extended${i + 1}.webp`} 
                             alt={`Realizacja ${i + 1}`} 
                             loading="lazy"
                         />

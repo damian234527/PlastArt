@@ -2,14 +2,31 @@
 import { languages, useTranslations } from '../i18n/utils';
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+
+const { pathname } = Astro.url;
+
+function getLanguageUrl(targetLang: string) {
+  const parts = pathname.split('/');
+  
+  if (parts.length > 1 && Object.keys(languages).includes(parts[1])) {
+    parts[1] = targetLang;
+  } else {
+    return `/${targetLang}${pathname}`;
+  }
+  
+  return parts.join('/') || '/';
+}
 ---
 <header>
     <div class="container nav-container">
-        <a href={`/${lang}/`} class="logo" style="font-style: italic; display: flex; align-items: center; gap: 4px; font-size: 1.8rem; text-decoration: none;">
-            <span style="color: var(--secondary); font-weight: 800; letter-spacing: -1px;">PLAST</span>
-            <span style="color: white; font-weight: 800; letter-spacing: -1px;">art</span>
+		<a href={`/${lang}/`} class="logo" style="display: flex; align-items: center; text-decoration: none;" aria-label="PLASTart">
+            <img 
+                src="/logo.png" 
+                alt="PLASTart Logo" 
+                style="height: 45px; width: auto; display: block;" 
+            />
         </a>
-
+		
         <button class="menu-toggle" id="menu-toggle" aria-label="Otwórz menu nawigacji" aria-expanded="false">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -25,7 +42,7 @@ const t = useTranslations(lang);
             <a href={`/${lang}/contact`}>{t('nav.contact')}</a>
             <div class="lang-switcher">
                 {Object.keys(languages).map((l) => (
-                    <a href={`/${l}/`} class={lang === l ? 'active' : ''}>{l.toUpperCase()}</a>
+                    <a href={getLanguageUrl(l)} class={lang === l ? 'active' : ''}>{l.toUpperCase()}</a>
                 ))}
             </div>
         </nav>

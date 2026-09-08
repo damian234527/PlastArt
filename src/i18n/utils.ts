@@ -38,7 +38,7 @@ export const ui = {
     'gallery.cat1.desc': 'Przesuń suwak na zdjęciu, aby porównać stan elementu przed naprawą i efekt po zakończeniu naszych prac.',
     'gallery.cat2.title': 'Efekty naszej pracy',
     'gallery.cat2.desc': 'Gotowe realizacje, zbiorniki i elementy po naprawie.',
-    'gallery.extended.title': 'Pełna Galeria',
+    'gallery.extended.title': 'Więcej Zdjęć',
     'gallery.more': 'Zobacz więcej zdjęć',
 	'news.title': 'Aktualności',
     'news.desc': 'Najnowsze informacje z życia naszej firmy.',
