@@ -11,12 +11,12 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 const t = useTranslations(lang as keyof typeof ui);
 ---
-<Layout title={`PLASTart - ${t('nav.contact')}`} lang={lang}>
+<Layout title={`PLASTart - ${t('panel_gorny_kontakt')}`} lang={lang}>
     <Header lang={lang} />
     <main>
         <div class="page-header">
             <div class="container">
-                <h1>{t('nav.contact')}</h1>
+                <h1>{t('panel_gorny_kontakt')}</h1>
             </div>
         </div>
         <section class="container" style="padding-top: 0;">
@@ -25,11 +25,11 @@ const t = useTranslations(lang as keyof typeof ui);
                 
                 <!-- Contact Info Card -->
                 <div class="card">
-                    <h3 style="margin-top: 0; font-size: 1.4rem;">{t('contact.details')}</h3>
-                    <p style="margin-bottom: 15px;"><strong>PLASTart</strong><br/>{t('contact.address')}</p>
+                    <h3 style="margin-top: 0; font-size: 1.4rem;">{t('kontakt_podtytul')}</h3>
+                    <p style="margin-bottom: 15px;"><strong>PLASTart</strong><br/>{t('kontakt_adres')}</p>
                     <p style="margin-top: 20px; line-height: 2;">
-                        <strong>{t('contact.phone.title')}:</strong> <a href={`tel:${t('contact.phone')}`} style="display: inline-block; padding: 2px 0;">{t('contact.phone')}</a><br/>
-                        <strong>E-mail:</strong> <a href={`mailto:${t('contact.email')}`} style="display: inline-block; padding: 2px 0;">{t('contact.email')}</a>
+                        <strong>{t('kontakt_telefon_tytul')}:</strong> <a href={`tel:${t('kontakt_telefon_numer')}`} style="display: inline-block; padding: 2px 0;">{t('kontakt_telefon_numer')}</a><br/>
+                        <strong>E-mail:</strong> <a href={`mailto:${t('kontakt_email')}`} style="display: inline-block; padding: 2px 0;">{t('kontakt_email')}</a>
                     </p>
                 </div>
 
@@ -42,7 +42,7 @@ const t = useTranslations(lang as keyof typeof ui);
                         loading="lazy" 
                         allowfullscreen 
                         referrerpolicy="no-referrer-when-downgrade"
-                        src={`https://maps.google.com/maps?q=${encodeURIComponent(t('contact.address'))}&t=&z=15&ie=UTF8&iwloc=B&output=embed`}>
+                        src={`https://maps.google.com/maps?q=${encodeURIComponent(t('kontakt_adres'))}&t=&z=15&ie=UTF8&iwloc=B&output=embed`}>
                     </iframe>
                 </div>
 

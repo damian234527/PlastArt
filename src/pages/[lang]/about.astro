@@ -11,22 +11,22 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 const t = useTranslations(lang as keyof typeof ui);
 ---
-<Layout title={`PLASTart - ${t('nav.about')}`} lang={lang}>
+<Layout title={`PLASTart - ${t('panel_gorny_o_nas')}`} lang={lang}>
     <Header lang={lang} />
     <main>
         <div class="page-header">
             <div class="container">
-                <h1>{t('nav.about')}</h1>
+                <h1>{t('panel_gorny_o_nas')}</h1>
             </div>
         </div>
         <section class="container" style="padding-top: 0;">
             
             <!-- Główny opis firmy i procesu wyceny -->
             <div class="card" style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px;">
-                <p><strong>{t('about.desc')}</strong></p>
-                <p>{t('about.intro')}</p>
-                <p>{t('about.materials.full')}</p>
-                <p>{t('about.pricing')}</p>
+                <p><strong>{t('o_nas_opis')}</strong></p>
+                <p>{t('o_nas_wstep')}</p>
+                <p>{t('o_nas_tworzywa_full')}</p>
+                <p>{t('o_nas_cena')}</p>
             </div>
 
             <!-- Sekcja usług w układzie kolumnowym -->
@@ -34,22 +34,22 @@ const t = useTranslations(lang as keyof typeof ui);
                 
                 <!-- Kategoria: Motoryzacja -->
                 <div class="card">
-                    <h3 style="margin-top: 0;">{t('about.auto.title')}</h3>
+                    <h3 style="margin-top: 0;">{t('o_nas_sekcja1_tytul')}</h3>
                     <ul style="padding-left: 20px; line-height: 1.6;">
-                        <li style="margin-bottom: 10px;">{t('about.auto.list.1')}</li>
-                        <li style="margin-bottom: 10px;">{t('about.auto.list.2')}</li>
-                        <li style="margin-bottom: 10px;">{t('about.auto.list.3')}</li>
-                        <li>{t('about.auto.list.4')}</li>
+                        <li style="margin-bottom: 10px;">{t('o_nas_sekcja1_lista1')}</li>
+                        <li style="margin-bottom: 10px;">{t('o_nas_sekcja1_lista2')}</li>
+                        <li style="margin-bottom: 10px;">{t('o_nas_sekcja1_lista3')}</li>
+                        <li>{t('o_nas_sekcja1_lista4')}</li>
                     </ul>
                 </div>
                 
                 <!-- Kategoria: Dom, ogród, inne -->
                 <div class="card">
-                    <h3 style="margin-top: 0;">{t('about.other.title')}</h3>
+                    <h3 style="margin-top: 0;">{t('o_nas_sekcja2_tytul')}</h3>
                     <ul style="padding-left: 20px; line-height: 1.6;">
-                        <li style="margin-bottom: 10px;">{t('about.other.list.1')}</li>
-                        <li style="margin-bottom: 10px;">{t('about.other.list.2')}</li>
-                        <li>{t('about.other.list.3')}</li>
+                        <li style="margin-bottom: 10px;">{t('o_nas_sekcja2_lista1')}</li>
+                        <li style="margin-bottom: 10px;">{t('o_nas_sekcja2_lista2')}</li>
+                        <li>{t('o_nas_sekcja2_lista3')}</li>
                     </ul>
                 </div>
             </div>
@@ -59,14 +59,14 @@ const t = useTranslations(lang as keyof typeof ui);
                 
                 <!-- Kategoria: Zbiorniki i Konstrukcje -->
                 <div class="card">
-                    <h3 style="margin-top: 0;">{t('about.tanks.title')}</h3>
-                    <p style="line-height: 1.6;">{t('about.tanks.desc')}</p>
+                    <h3 style="margin-top: 0;">{t('o_nas_sekcja3_tytul')}</h3>
+                    <p style="line-height: 1.6;">{t('o_nas_sekcja3_opis')}</p>
                 </div>
 
                 <!-- Kategoria: Tabliczki -->
                 <div class="card">
-                    <h3 style="margin-top: 0;">{t('about.plates.title')}</h3>
-                    <p style="line-height: 1.6;">{t('about.plates.desc')}</p>
+                    <h3 style="margin-top: 0;">{t('o_nas_sekcja4_tytul')}</h3>
+                    <p style="line-height: 1.6;">{t('o_nas_sekcja4_opis')}</p>
                 </div>
             </div>
 

@@ -2,15 +2,15 @@
 import Layout from '../../../layouts/Layout.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import { ui, useTranslations } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
     const allNews = await getCollection('news');
     return allNews
-        .filter(entry => entry.slug.includes('/'))
+        .filter(entry => entry.id.includes('/'))
         .map(entry => {
-            const [lang, ...slugParts] = entry.slug.split('/');
+            const [lang, ...slugParts] = entry.id.split('/'); 
             const slug = slugParts.join('/');
             
             return {
@@ -22,7 +22,7 @@ export async function getStaticPaths() {
 
 const { lang } = Astro.params;
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 const t = useTranslations(lang as keyof typeof ui);
 ---
 <Layout title={`PLASTart - ${entry.data.title}`} lang={lang}>
@@ -60,7 +60,7 @@ const t = useTranslations(lang as keyof typeof ui);
                 <Content />
             </div>
             <div style="margin-top: 40px;">
-                <a href={`/${lang}/news`} class="btn-more" style="margin-top: 0;">&larr; {t('button.back')}</a>
+                <a href={`/${lang}/news`} class="btn-more" style="margin-top: 0;">&larr; {t('guzik_powrot')}</a>
             </div>
         </section>
     </main>

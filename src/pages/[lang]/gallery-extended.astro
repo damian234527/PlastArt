@@ -12,12 +12,12 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 const t = useTranslations(lang as keyof typeof ui);
 ---
-<Layout title={`PLASTart - ${t('gallery.extended.title')}`} lang={lang}>
+<Layout title={`PLASTart - ${t('galeria_rozszerzona_tytul')}`} lang={lang}>
     <Header lang={lang} />
     <main>
         <div class="page-header">
             <div class="container">
-                <h1>{t('gallery.extended.title')}</h1>
+                <h1>{t('galeria_rozszerzona_tytul')}</h1>
             </div>
         </div>
         <section class="container" style="padding-top: 0;">
@@ -36,7 +36,7 @@ const t = useTranslations(lang as keyof typeof ui);
             </div>
 
             <div style="margin-top: 60px; text-align: center;">
-                <a href={`/${lang}/gallery`} class="btn-more">&larr; {t('button.back')}</a>
+                <a href={`/${lang}/gallery`} class="btn-more">&larr; {t('guzik_powrot')}</a>
             </div>
         </section>
     </main>

@@ -36,10 +36,10 @@ function getLanguageUrl(targetLang: string) {
         </button>
 
         <nav id="nav-menu">
-            <a href={`/${lang}/about`}>{t('nav.about')}</a>
-            <a href={`/${lang}/gallery`}>{t('nav.gallery')}</a>
-            <a href={`/${lang}/news`}>{t('nav.news')}</a>
-            <a href={`/${lang}/contact`}>{t('nav.contact')}</a>
+            <a href={`/${lang}/about`}>{t('panel_gorny_o_nas')}</a>
+            <a href={`/${lang}/gallery`}>{t('panel_gorny_galeria')}</a>
+            <a href={`/${lang}/news`}>{t('panel_gorny_aktualnosci')}</a>
+            <a href={`/${lang}/contact`}>{t('panel_gorny_kontakt')}</a>
             <div class="lang-switcher">
                 {Object.keys(languages).map((l) => (
                     <a href={getLanguageUrl(l)} class={lang === l ? 'active' : ''}>{l.toUpperCase()}</a>

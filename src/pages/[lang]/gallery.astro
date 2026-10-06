@@ -12,21 +12,21 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 const t = useTranslations(lang as keyof typeof ui);
 ---
-<Layout title={`PLASTart - ${t('nav.gallery')}`} lang={lang}>
+<Layout title={`PLASTart - ${t('panel_gorny_galeria')}`} lang={lang}>
     <Header lang={lang} />
     <main>
         <div class="page-header">
             <div class="container">
-                <h1>{t('nav.gallery')}</h1>
+                <h1>{t('panel_gorny_galeria')}</h1>
             </div>
         </div>
         <section class="container" style="padding-top: 0;">
-            <p style="text-align: center; font-size: clamp(1rem, 2.5vw, 1.1rem); margin-bottom: 30px;">{t('page.gallery.full')}</p>
+            <p style="text-align: center; font-size: clamp(1rem, 2.5vw, 1.1rem); margin-bottom: 30px;">{t('galeria_skrot')}</p>
             
             <!-- Zdjęcia ze sliderem -->
             <div style="margin-bottom: 60px;">
-                <h2>{t('gallery.cat1.title')}</h2>
-                <p style="text-align: center; color: #666666; margin-bottom: 30px;">{t('gallery.cat1.desc')}</p>
+                <h2>{t('galeria_sekcja1_tytul')}</h2>
+                <p style="text-align: center; color: #666666; margin-bottom: 30px;">{t('galeria_sekcja1_opis')}</p>
                 
                 <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 20px;">
                     <BeforeAfterSlider 
@@ -42,8 +42,8 @@ const t = useTranslations(lang as keyof typeof ui);
 
             <!-- Siatka zdjęć -->
             <div style="margin-bottom: 60px;">
-                <h2>{t('gallery.cat2.title')}</h2>
-                <p style="text-align: center; color: #666666; margin-bottom: 30px;">{t('gallery.cat2.desc')}</p>
+                <h2>{t('galeria_sekcja2_tytul')}</h2>
+                <p style="text-align: center; color: #666666; margin-bottom: 30px;">{t('galeria_sekcja2_opis')}</p>
                 
                 <div class="gallery-grid">
                     {Array.from({length: 6}).map((_, i) => (
@@ -69,7 +69,7 @@ const t = useTranslations(lang as keyof typeof ui);
                     ))}
                 </div>
 				<div class="center-action" style="text-align: center; margin-top: 40px;">
-                    <a href={`/${lang}/gallery-extended`} class="btn-more">{t('gallery.more')} &rarr;</a>
+                    <a href={`/${lang}/gallery-extended`} class="btn-more">{t('galeria_rozszerzona_przycisk')} &rarr;</a>
                 </div>
             </div>
             
