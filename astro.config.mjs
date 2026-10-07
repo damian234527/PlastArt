@@ -1,16 +1,11 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import cloudflare from '@astrojs/cloudflare';
-const siteUrl = process.env.CF_PAGES_URL || 'https://plastart.plast.one.pl';
 
-const isBuild = process.argv.includes('build');
+const siteUrl = process.env.CF_PAGES_URL || 'https://plastart.plast.one.pl';
 
 export default defineConfig({
   output: 'static',
   site: siteUrl,
-
-  // site: 'http://localhost:4321',
-  // site: 'https://plastart.plast.one.pl',
   integrations: [sitemap()],
 
   i18n: {
@@ -19,7 +14,5 @@ export default defineConfig({
     routing: {
       prefixDefaultLocale: true
     }
-  },
-
-  adapter: isBuild ? cloudflare() : undefined
+  }
 });
