@@ -3,6 +3,8 @@ import sitemap from '@astrojs/sitemap';
 import cloudflare from '@astrojs/cloudflare';
 const siteUrl = process.env.CF_PAGES_URL || 'https://plastart.plast.one.pl';
 
+const isBuild = process.argv.includes('build');
+
 export default defineConfig({
   output: 'static',
   site: siteUrl,
@@ -19,5 +21,5 @@ export default defineConfig({
     }
   },
 
-  adapter: cloudflare()
+  adapter: isBuild ? cloudflare() : undefined
 });
