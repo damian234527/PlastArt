@@ -26,7 +26,7 @@ const latestNews = allNews.sort((a, b) => b.data.date.valueOf() - a.data.date.va
             </div>
         </section>
 
-        <!-- SEKCJA O NAS -->
+<!-- SEKCJA O NAS -->
         <section id="about" class="container">
             <h2>{t('o_nas_tytul')}</h2>
             <div class="grid" style="align-items: center; margin-top: 40px;">
@@ -34,7 +34,27 @@ const latestNews = allNews.sort((a, b) => b.data.date.valueOf() - a.data.date.va
                     <p style="font-size: 1.1rem;">{t('o_nas_opis')}</p>
                     <p style="margin-top: 15px; font-weight: bold; color: var(--primary);">{t('o_nas_tworzywa_skrot')}</p>
                 </div>
-                <div style="background: #e2e8f0; height: 100%; min-height: 250px; border-radius: 0px; display: flex; align-items: center; justify-content: center; color: #94a3b8;">[Zdjęcie]</div>
+                
+				<!-- POKAZ SLAJDÓW -->
+                <div class="slideshow-container" style="height: 100%;">
+                    {/* Pobieramy 6 pierwszych zdjęć z galerii rozszerzonej */}
+                    {Array.from({length: 6}).map((_, i) => (
+                        <img 
+                            src={`/images/extended${i + 1}.webp`} 
+                            alt={`Slajd ${i + 1}`} 
+                            class={`slide ${i === 0 ? 'active' : ''}`}
+                            loading={i === 0 ? "eager" : "lazy"}
+                        />
+                    ))}
+                    
+                    <!-- Guzik na środku zdjęcia -->
+                    <div class="overlay-button-container">
+                        <a href={`/${lang}/gallery`} class="btn-more" style="margin-top: 0; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                            {t('panel_gorny_galeria')} &rarr;
+                        </a>
+                    </div>
+                </div>
+
             </div>
             <div class="center-action">
                 <a href={`/${lang}/about`} class="btn-more">{t('guzik_szczegoly')}</a>
@@ -66,3 +86,66 @@ const latestNews = allNews.sort((a, b) => b.data.date.valueOf() - a.data.date.va
     </main>
     <Footer />
 </Layout>
+
+<style>
+  /* Styl kontenera pokazu slajdów */
+  .slideshow-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    background: #e2e8f0;
+  }
+
+  /* Styl pojedynczego zdjęcia (nakładanie na siebie) */
+  .slideshow-container .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* Płynne przenikanie (fade) */
+    z-index: 1;
+  }
+
+  /* Klasa aktywująca widoczność bieżącego zdjęcia */
+  .slideshow-container .slide.active {
+    opacity: 1;
+    z-index: 2;
+  }
+  
+  /* Pozycjonowanie guzika */
+  .overlay-button-container {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 10; /* Warstwa ustawiona wyżej niż zdjęcia (z-index: 2) */
+  }
+</style>
+
+<script>
+  // Zmiana zdjęć co 4 sekundy
+  document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('.slideshow-container .slide');
+    if (slides.length === 0) return;
+    
+    let currentSlide = 0;
+
+    setInterval(() => {
+      // Ukryj obecny slajd
+      slides[currentSlide].classList.remove('active');
+      
+      // Przejdź do następnego slajdu (wróć do 0, jeśli to koniec)
+      currentSlide = (currentSlide + 1) % slides.length;
+      
+      // Pokaż nowy slajd
+      slides[currentSlide].classList.add('active');
+    }, 4000); // 4 sekundy
+  });
+</script>
